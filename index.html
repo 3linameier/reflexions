@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflexions — Gestural Play as an Interactive Art Installation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300;1,700;1,900&family=JetBrains+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --terra:      #C0524A;
+  --terra-dark: #9E3F38;
+  --terra-lt:   #D4706A;
+  --cream:      #F4EDD6;
+  --cream-dk:   #E8DFC4;
+  --navy:       #1B1B2F;
+  --navy-mid:   #2E2E46;
+  --teal:       #3DCFC0;
+  --gold:       #F0A832;
+  --white:      #FDFAF3;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--terra); color: var(--cream);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 300;
+  line-height: 1.7; overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 3rem;
+  background: rgba(158,63,56,0.92); backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(244,237,214,0.1);
+}
+.nav-logo {
+  font-family: 'Fraunces', serif; font-style: italic; font-weight: 900;
+  font-size: 1.05rem; color: var(--cream);
+}
+nav ul { display: flex; gap: 2rem; list-style: none; }
+nav a {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.1em; color: rgba(244,237,214,0.5); text-decoration: none;
+  text-transform: uppercase; transition: color .2s;
+}
+nav a:hover { color: var(--cream); }
+.nav-logos { display: flex; align-items: center; gap: 1.2rem; }
+.nav-logo-slot {
+  height: 28px; display: flex; align-items: center;
+  filter: brightness(10) saturate(0); opacity: 0.55; transition: opacity .2s;
+}
+.nav-logo-slot:hover { opacity: 0.85; }
+.nav-logo-slot img { height: 100%; width: auto; object-fit: contain; }
+/* text fallback until real logos added */
+.nav-logo-slot span {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,214,0.5);
+  border: 1px solid rgba(244,237,214,0.18); padding: 0.22rem 0.55rem; border-radius: 2px;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh; padding: 8rem 3rem 4rem;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3rem; align-items: center; position: relative; overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(244,237,214,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244,237,214,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 60% 80% at 70% 50%, black 10%, transparent 75%);
+  pointer-events: none;
+}
+.hero-sub {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+  display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.4rem;
+}
+.hero-sub::before { content: ''; width: 20px; height: 1px; background: var(--teal); }
+h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.6rem, 5vw, 4.4rem); line-height: 1.0;
+  letter-spacing: -0.02em; color: var(--cream); margin-bottom: 1.4rem;
+}
+h1 em { font-style: italic; }
+h1 .accent { font-style: italic; color: var(--teal); }
+.hero-desc {
+  font-size: 1rem; color: rgba(244,237,214,0.7);
+  max-width: 440px; line-height: 1.85; margin-bottom: 0.7rem;
+}
+.hero-desc strong { color: var(--cream); font-weight: 600; }
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  color: rgba(244,237,214,0.32); letter-spacing: 0.06em;
+  margin-bottom: 2rem; line-height: 1.9;
+}
+.btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-cream {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 0.85rem 2rem;
+  background: var(--cream); color: var(--terra-dark); border: none; border-radius: 2px;
+  text-decoration: none; transition: background .2s, transform .1s;
+}
+.btn-cream:hover { background: var(--white); transform: translateY(-2px); }
+.btn-outline {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 400;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 0.85rem 2rem;
+  background: transparent; color: var(--cream);
+  border: 1px solid rgba(244,237,214,0.22); border-radius: 2px;
+  text-decoration: none; transition: border-color .2s;
+}
+.btn-outline:hover { border-color: var(--cream); }
+
+/* HERO GESTURE CYCLE */
+.hero-visual { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1.4rem; }
+.gesture-cycle { position: relative; width: 220px; height: 240px; }
+.cycle-img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  filter: brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(133deg);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.cycle-img.fade-out { opacity: 0; transform: scale(0.92); }
+
+.cv-readout {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  color: var(--teal); opacity: 0.55; line-height: 1.8; text-align: center;
+}
+
+/* STATS */
+.stats-bar {
+  display: flex;
+  border-top: 1px solid rgba(244,237,214,0.08);
+  border-bottom: 1px solid rgba(244,237,214,0.08);
+  background: var(--terra-dark);
+}
+.stat { flex: 1; padding: 1.6rem 1rem; text-align: center; border-right: 1px solid rgba(244,237,214,0.08); }
+.stat:last-child { border-right: none; }
+.stat-val {
+  font-family: 'Fraunces', serif; font-size: 2rem;
+  color: var(--teal); display: block; line-height: 1; margin-bottom: 0.3rem;
+}
+.stat-lbl {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244,237,214,0.38);
+}
+
+/* INTRO */
+.intro-section { background: var(--cream); color: var(--navy); padding: 5rem 3rem; }
+.intro-inner { max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.intro-heading {
+  font-family: 'Fraunces', serif; font-weight: 700; font-style: italic;
+  font-size: 1.15rem; color: var(--terra); margin-bottom: 0.7rem;
+}
+.intro-body { font-size: 0.92rem; line-height: 1.85; color: rgba(27,27,47,0.68); }
+.intro-body + .intro-body { margin-top: 0.8rem; }
+.intro-body strong { font-weight: 600; color: var(--navy); }
+
+.intro-gestures { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 0.3rem; }
+.intro-gesture-row {
+  display: flex; align-items: center; gap: 0.8rem;
+  background: var(--cream-dk); border-radius: 40px; padding: 0.5rem 1rem;
+  transition: background .2s;
+}
+.intro-gesture-row:hover { background: var(--terra); }
+.intro-gesture-row:hover .igr-name, .intro-gesture-row:hover .igr-role { color: var(--cream); }
+.igr-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.igr-icon img { width: 30px; height: 30px; object-fit: contain; }
+.igr-name {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+  font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy);
+}
+.igr-role { font-size: 0.72rem; color: rgba(27,27,47,0.4); margin-left: auto; padding-right: 0.2rem; }
+
+/* ARTWORKS */
+.artworks-section { background: var(--terra-dark); padding: 5rem 3rem; }
+h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.7rem); line-height: 1.1;
+  letter-spacing: -0.02em; color: var(--cream); margin-bottom: 0.5rem;
+}
+.section-desc { font-size: 0.9rem; color: rgba(244,237,214,0.5); margin-bottom: 2.5rem; max-width: 520px; }
+
+.artworks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+.artwork-card {
+  border-radius: 6px; overflow: hidden;
+  border: 1px solid rgba(244,237,214,0.1); transition: transform .25s, border-color .25s;
+}
+.artwork-card:hover { transform: translateY(-4px); border-color: rgba(244,237,214,0.25); }
+
+/* Demo / gif slot replaces the old screenshot placeholder */
+.artwork-demo {
+  aspect-ratio: 16/9; position: relative; overflow: hidden;
+  background: var(--navy); display: flex; align-items: center;
+  justify-content: center; flex-direction: column; gap: 0.5rem;
+}
+.artwork-demo-rps  { background: #0d0d1f; }
+.artwork-demo-bloom { background: #070f07; }
+.artwork-demo-lava  { background: #2a1000; }
+.demo-pattern {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    45deg, transparent, transparent 22px,
+    rgba(244,237,214,0.012) 22px, rgba(244,237,214,0.012) 44px
+  );
+}
+.play-ring {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1.5px solid rgba(244,237,214,0.2);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1; transition: border-color .2s;
+}
+.artwork-card:hover .play-ring { border-color: rgba(244,237,214,0.45); }
+.play-ring::after {
+  content: ''; border-left: 17px solid rgba(244,237,214,0.4);
+  border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px;
+}
+.demo-hint {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(244,237,214,0.22); position: relative; z-index: 1;
+}
+.artwork-demo img, .artwork-demo video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+.artwork-body { background: var(--navy-mid); padding: 1.4rem 1.6rem; }
+.artwork-name {
+  font-family: 'Fraunces', serif; font-size: 1.1rem;
+  color: var(--cream); margin-bottom: 0.4rem; display: block;
+}
+.artwork-body p { font-size: 0.82rem; color: rgba(244,237,214,0.58); line-height: 1.7; }
+.artwork-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.9rem; }
+.artwork-chip {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.57rem;
+  color: rgba(244,237,214,0.38); background: rgba(244,237,214,0.04);
+  border: 1px solid rgba(244,237,214,0.08); padding: 0.15rem 0.45rem; border-radius: 2px;
+}
+
+/* lava blobs */
+.lava-blob {
+  position: absolute; border-radius: 50%; animation: lavaFloat 5s ease-in-out infinite;
+}
+@keyframes lavaFloat {
+  0%,100% { transform: scale(1) translateY(0); border-radius: 50%; }
+  33% { transform: scale(1.1) translateY(-10px); border-radius: 45% 55% 50% 50%; }
+  66% { transform: scale(0.95) translateY(6px); border-radius: 55% 45% 45% 55%; }
+}
+
+/* GESTURES SECTION — dark */
+.gestures-section { background: var(--navy); padding: 5rem 3rem; }
+.gestures-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.gestures-section h2 { color: var(--cream); }
+.gestures-section .section-desc { color: rgba(244,237,214,0.4); }
+.section-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+  margin-bottom: 0.5rem; display: block;
+}
+
+.gesture-trio { display: flex; gap: 2rem; justify-content: center; margin-bottom: 1.8rem; }
+.gesture-item { text-align: center; }
+.gesture-img {
+  width: 96px; height: 96px; margin: 0 auto 0.6rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .2s;
+}
+.gesture-item:hover .gesture-img { transform: scale(1.06) translateY(-3px); }
+.gesture-img img {
+  width: 80px; height: 80px; object-fit: contain;
+  /* white PNG → teal/cyan */
+  filter: brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(133deg);
+}
+.gesture-name {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  letter-spacing: 0.12em; text-transform: uppercase; color: rgba(244,237,214,0.45);
+}
+.gesture-role { font-size: 0.72rem; color: rgba(244,237,214,0.28); }
+
+.acc-block { margin-top: 0; }
+.acc-row { margin-bottom: 0.9rem; }
+.acc-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem; }
+.acc-name { font-size: 0.8rem; color: rgba(244,237,214,0.5); }
+.acc-val { font-family: 'Fraunces', serif; font-size: 1rem; color: var(--cream); }
+.acc-track { height: 4px; background: rgba(244,237,214,0.1); border-radius: 2px; overflow: hidden; }
+.acc-fill { height: 100%; border-radius: 2px; background: var(--terra-lt); }
+.acc-fill.teal { background: var(--teal); }
+
+/* PIPELINE */
+.pipeline-section { background: var(--terra); padding: 5rem 3rem; }
+.steps {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  border: 1px solid rgba(244,237,214,0.1); border-radius: 5px;
+  overflow: hidden; margin-top: 2.5rem;
+}
+.step {
+  padding: 1.6rem 1.3rem; border-right: 1px solid rgba(244,237,214,0.1);
+  background: rgba(27,27,47,0.35); transition: background .2s;
+}
+.step:hover { background: rgba(27,27,47,0.5); }
+.step:last-child { border-right: none; }
+.step-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(244,237,214,0.3); display: block; margin-bottom: 0.6rem;
+}
+.step-icon { font-size: 1.2rem; margin-bottom: 0.5rem; display: block; }
+.step h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 0.92rem; color: var(--cream); margin-bottom: 0.35rem;
+}
+.step p { font-size: 0.76rem; color: rgba(244,237,214,0.48); line-height: 1.6; }
+.step-detail {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+  color: var(--teal); margin-top: 0.4rem; opacity: 0.65;
+}
+
+/* RESEARCH */
+.research-section { background: var(--navy-mid); padding: 5rem 3rem; }
+.research-section h2 { color: var(--cream); }
+.research-section .section-desc { color: rgba(244,237,214,0.4); }
+.rq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem; }
+.rq-card {
+  background: var(--navy); border: 1px solid rgba(244,237,214,0.06);
+  border-top: 2px solid var(--terra); border-radius: 0 0 5px 5px; padding: 1.4rem;
+}
+.rq-card:nth-child(2), .rq-card:nth-child(5) { border-top-color: var(--teal); }
+.rq-card h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 0.95rem; color: var(--cream); margin-bottom: 0.4rem;
+}
+.rq-card p { font-size: 0.8rem; color: rgba(244,237,214,0.45); line-height: 1.65; }
+.rq-score {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem; color: var(--teal); display: block; margin-bottom: 0.25rem;
+}
+
+/* FOOTER */
+footer {
+  background: var(--terra-dark); padding: 2.2rem 3rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  border-top: 1px solid rgba(244,237,214,0.07); flex-wrap: wrap;
+}
+.footer-logo {
+  font-family: 'Fraunces', serif; font-style: italic; font-weight: 900;
+  font-size: 1.1rem; color: var(--cream);
+}
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+  color: rgba(244,237,214,0.28); letter-spacing: 0.05em; margin-top: 0.15rem;
+}
+.footer-logos {
+  display: flex; align-items: center; gap: 1.5rem;
+}
+.footer-logo-slot {
+  height: 34px; display: flex; align-items: center;
+  filter: brightness(10) saturate(0); opacity: 0.5; transition: opacity .2s;
+}
+.footer-logo-slot:hover { opacity: 0.8; }
+.footer-logo-slot img { height: 100%; width: auto; object-fit: contain; }
+.footer-logo-slot span {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid rgba(244,237,214,0.2); padding: 0.25rem 0.6rem; border-radius: 2px;
+  color: rgba(244,237,214,0.5);
+}
+.footer-stack {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+  color: rgba(244,237,214,0.28); text-align: right; line-height: 1.9;
+}
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  nav { padding: 1rem 1.5rem; }
+  nav ul, .nav-logos { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+  .hero-visual { display: none; }
+  .intro-inner, .gestures-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .artworks-grid, .rq-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .step { border-right: none; border-bottom: 1px solid rgba(244,237,214,0.1); }
+  .step:last-child { border-bottom: none; }
+  .stats-bar { flex-wrap: wrap; }
+  .stat { min-width: 50%; }
+  footer { flex-direction: column; align-items: flex-start; }
+  .footer-stack { text-align: left; }
+  section, .intro-section, .artworks-section, .gestures-section,
+  .pipeline-section, .research-section { padding: 4rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Reflexions</div>
+  <ul>
+    <li><a href="#artworks">Artworks</a></li>
+    <li><a href="#system">System</a></li>
+    <li><a href="#research">Research</a></li>
+  </ul>
+  <div class="nav-logos">
+    <!-- swap span for <img src="ut-cs-logo.png" alt="UT Institute of CS"> once you have the file -->
+    <div class="nav-logo-slot"><span>UT Institute of CS</span></div>
+    <div class="nav-logo-slot"><span>CGVR Lab</span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div>
+    <div class="hero-sub">Interactive Art Installation · University of Tartu</div>
+    <h1><em>Turning the body</em><br>into a <span class="accent">controller</span><br>for living<br><em>digital art.</em></h1>
+    <p class="hero-desc">
+      <strong>Reflexions</strong> is extended with real-time hand gesture recognition across three artworks — letting visitors shape generative visuals using only their hands and physical proximity to a depth camera.
+    </p>
+    <div class="hero-meta">
+      <a href="https://thesis.cs.ut.ee/697d693b-780d-4724-a859-e496fdea16c4" target="_blank" rel="noopener" style="color:rgba(244,237,214,0.55);text-decoration:underline;text-underline-offset:3px;">Elina Meier</a> &nbsp;·&nbsp; Supervisor: Mathias Plans, MSc<br>
+      Master's Thesis · Institute of Computer Science · 2026
+    </div>
+    <div class="btn-row">
+      <a href="#artworks" class="btn-cream">See the Artworks</a>
+      <a href="#system" class="btn-outline">Technical System</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="gesture-cycle" id="gestureCycle">
+      <img id="rockImg"     class="cycle-img"          src="images/rockIcon.png"     alt="Rock gesture">
+      <img id="paperImg"    class="cycle-img fade-out"  src="images/paperIcon.png"    alt="Paper gesture">
+      <img id="scissorsImg" class="cycle-img fade-out"  src="images/scissorsIcon.png" alt="Scissors gesture">
+    </div>
+    <div class="cv-readout" id="cvReadout">
+      gesture: Closed_Fist &nbsp;·&nbsp; conf: 0.97<br>
+      depth: 0.42 m &nbsp;·&nbsp; wrist: (0.274, 0.273)
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat reveal"><span class="stat-val">3</span><span class="stat-lbl">Artworks</span></div>
+  <div class="stat reveal"><span class="stat-val">21</span><span class="stat-lbl">Hand Landmarks</span></div>
+  <div class="stat reveal"><span class="stat-val">96%</span><span class="stat-lbl">Gesture Accuracy</span></div>
+  <div class="stat reveal"><span class="stat-val">65k</span><span class="stat-lbl">SPH Particles</span></div>
+  <div class="stat reveal"><span class="stat-val">2×1m</span><span class="stat-lbl">Display</span></div>
+</div>
+
+<!-- INTRO -->
+<section class="intro-section">
+  <div class="intro-inner reveal">
+    <div>
+      <div class="intro-heading">About the project</div>
+      <p class="intro-body">
+        <strong>Reflexions</strong> is an interactive digital art installation at the University of Tartu. This thesis extends the <a href="https://reflexions.cloud.ut.ee/" target="_blank" rel="noopener" style="color:var(--terra);text-decoration:underline;text-underline-offset:3px;">original Reflexions installation</a> with hand gesture recognition and game mechanics across three artworks — Bloom, Lavalamp, and a new Rock–Paper–Scissors piece.
+      </p>
+      <p class="intro-body">
+        Visitors interact through mid-air gestures toward an Intel RealSense depth camera. Physical distance from the camera adds a spatial dimension — closer means larger, further means smaller. No wearables, no touchscreen, no prior instruction.
+      </p>
+    </div>
+    <div>
+      <div class="intro-heading" style="margin-bottom:0.9rem;">Three gestures</div>
+      <div class="intro-gestures">
+        <div class="intro-gesture-row">
+          <div class="igr-icon"><img src="images/rockIcon.png" alt="Fist"></div>
+          <span class="igr-name">Fist</span>
+          <span class="igr-role">Rock &nbsp;/&nbsp; Pull</span>
+        </div>
+        <div class="intro-gesture-row">
+          <div class="igr-icon"><img src="images/paperIcon.png" alt="Palm"></div>
+          <span class="igr-name">Palm</span>
+          <span class="igr-role">Paper &nbsp;/&nbsp; Push</span>
+        </div>
+        <div class="intro-gesture-row">
+          <div class="igr-icon"><img src="images/scissorsIcon.png" alt="Victory"></div>
+          <span class="igr-name">Victory</span>
+          <span class="igr-role">Scissors</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTWORKS + DEMO COMBINED -->
+<section id="artworks" class="artworks-section">
+  <div class="reveal">
+    <h2>Three artworks.</h2>
+    <p class="section-desc">Same gesture vocabulary, three distinct aesthetic worlds. Drop your .gif or .mp4 files into each card.</p>
+  </div>
+  <div class="artworks-grid reveal">
+
+    <div class="artwork-card">
+      <div class="artwork-demo artwork-demo-rps">
+        <!--
+          To add your demo, replace this comment block with ONE of:
+          <img src="rps-demo.gif" alt="RPS demo">
+          <video src="rps-demo.mp4" autoplay loop muted playsinline></video>
+        -->
+        <div class="demo-pattern"></div>
+        <div class="play-ring"></div>
+        <div class="demo-hint">rps-demo.gif</div>
+      </div>
+      <div class="artwork-body">
+        <span class="artwork-name">Rock–Paper–Scissors</span>
+        <p>Gestures spawn animated 3D objects that flock and battle using Boids logic and RPS collision rules. A competitive dynamic emerges naturally across multiple players.</p>
+        <div class="artwork-chips">
+          <span class="artwork-chip">Boids flocking</span>
+          <span class="artwork-chip">GPU particle trails</span>
+          <span class="artwork-chip">Predator-prey forces</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="artwork-card">
+      <div class="artwork-demo artwork-demo-bloom">
+        <!--
+          <img src="bloom-demo.gif" alt="Bloom demo">
+          <video src="bloom-demo.mp4" autoplay loop muted playsinline></video>
+        -->
+        <div class="demo-pattern"></div>
+        <div class="play-ring"></div>
+        <div class="demo-hint">bloom-demo.gif</div>
+      </div>
+      <div class="artwork-body">
+        <span class="artwork-name">Bloom</span>
+        <p>Each detected hand spawns a bee following via spring-damper physics. Holding still blooms a lily — a persistent trace of the visitor's presence. Extended from the original Lily artwork.</p>
+        <div class="artwork-chips">
+          <span class="artwork-chip">Spring-damper physics</span>
+          <span class="artwork-chip">Lily spawning</span>
+          <span class="artwork-chip">Multi-user</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="artwork-card">
+      <div class="artwork-demo artwork-demo-lava" style="position:relative;">
+        <!--
+          <img src="lavalamp-demo.gif" alt="Lavalamp demo">
+          <video src="lavalamp-demo.mp4" autoplay loop muted playsinline></video>
+        -->
+        <div class="lava-blob" style="width:90px;height:90px;background:rgba(255,210,70,0.4);top:-18px;left:18px"></div>
+        <div class="lava-blob" style="width:60px;height:60px;background:rgba(190,70,15,0.38);bottom:0;right:32px;animation-delay:2s"></div>
+        <div style="position:absolute;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.5);top:36px;left:140px;filter:blur(5px)"></div>
+        <div class="play-ring" style="position:relative;z-index:2"></div>
+        <div class="demo-hint" style="position:relative;z-index:2">lavalamp-demo.gif</div>
+      </div>
+      <div class="artwork-body">
+        <span class="artwork-name">Lavalamp</span>
+        <p>A fist pulls 65,536 SPH particles inward; an open palm pushes them away. Multiple users create competing fluid forces. Each interaction leaves a permanent trace on the simulation.</p>
+        <div class="artwork-chips">
+          <span class="artwork-chip">SPH compute shader</span>
+          <span class="artwork-chip">65k particles</span>
+          <span class="artwork-chip">Persistent traces</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GESTURES — dark background -->
+<section class="gestures-section">
+  <div class="gestures-layout reveal">
+    <div>
+      <span class="section-label">Gesture recognition</span>
+      <h2>Three gestures, no instruction.</h2>
+      <p class="section-desc">Rock, paper, and scissors are culturally universal hand signs — no explanation needed. The same three gestures take on different meanings in each artwork.</p>
+      <p style="font-size:0.8rem;color:rgba(244,237,214,0.45);margin-bottom:0.9rem;">Recognition accuracy (MediaPipe Gesture Recogniser, CPU only):</p>
+      <div class="acc-block">
+        <div class="acc-row">
+          <div class="acc-label">
+            <span class="acc-name">Single user</span>
+            <span class="acc-val">96.3%</span>
+          </div>
+          <div class="acc-track"><div class="acc-fill teal" style="width:96.3%"></div></div>
+        </div>
+        <div class="acc-row">
+          <div class="acc-label">
+            <span class="acc-name">Multi-user (3 players)</span>
+            <span class="acc-val">89.0%</span>
+          </div>
+          <div class="acc-track"><div class="acc-fill" style="width:89%"></div></div>
+        </div>
+      </div>
+      <p style="font-size:0.76rem;color:rgba(244,237,214,0.35);margin-top:0.7rem;line-height:1.6;">
+        Wrist landmark is used as the depth reference — stable across all gesture types. Only detections above 0.5 confidence are emitted.
+      </p>
+    </div>
+    <div>
+      <div class="gesture-trio">
+        <div class="gesture-item">
+          <div class="gesture-img">
+            <img src="images/rockIcon.png" alt="Fist — Rock">
+          </div>
+          <div class="gesture-name">Fist</div>
+          <div class="gesture-role">Rock / Pull</div>
+        </div>
+        <div class="gesture-item">
+          <div class="gesture-img">
+            <img src="images/paperIcon.png" alt="Palm — Paper">
+          </div>
+          <div class="gesture-name">Palm</div>
+          <div class="gesture-role">Paper / Push</div>
+        </div>
+        <div class="gesture-item">
+          <div class="gesture-img">
+            <img src="images/scissorsIcon.png" alt="Victory — Scissors">
+          </div>
+          <div class="gesture-name">Victory</div>
+          <div class="gesture-role">Scissors</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section id="system" class="pipeline-section">
+  <div class="reveal">
+    <h2>How it works.</h2>
+    <p class="section-desc">Two independent processes — Python for vision, Godot for rendering — communicate over a local UDP socket at 30 fps.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step">
+      <span class="step-icon">📷</span><span class="step-num">01</span>
+      <h3>RealSense SR305</h3>
+      <p>Short-range camera (0.2–1.5 m). RGB feeds gesture recognition; depth scales visual elements in all three artworks.</p>
+      <div class="step-detail">640×480 @ 30 fps</div>
+    </div>
+    <div class="step">
+      <span class="step-icon">🖐</span><span class="step-num">02</span>
+      <h3>MediaPipe</h3>
+      <p>Gesture Recogniser in VIDEO mode. Outputs gesture label, confidence, and wrist coordinates per hand per frame.</p>
+      <div class="step-detail">~25 fps · CPU only</div>
+    </div>
+    <div class="step">
+      <span class="step-icon">📡</span><span class="step-num">03</span>
+      <h3>UDP · port 9000</h3>
+      <p>JSON arrays from Python to Godot. Minimal latency; dropped packets are superseded by the next frame.</p>
+      <div class="step-detail">500 ms timeout → clear</div>
+    </div>
+    <div class="step">
+      <span class="step-icon">🎮</span><span class="step-num">04</span>
+      <h3>Godot 4</h3>
+      <p>RPSReceiver parses packets and emits a signal. Each artwork handles gesture data independently via its own interaction model.</p>
+      <div class="step-detail">60 fps rendering</div>
+    </div>
+    <div class="step">
+      <span class="step-icon">🖥</span><span class="step-num">05</span>
+      <h3>2 × 1 m Display</h3>
+      <p>Horizontal layout for side-by-side play. Scales to any display size or projected surface without modification.</p>
+      <div class="step-detail">Any display size</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" class="research-section">
+  <div class="reveal">
+    <h2>Evaluation findings.</h2>
+    <p class="section-desc">Ten participants, aged 20–27, in solo, pair, and trio sessions. Rated on a five-point Likert scale derived from the MDA framework and the Engagement Model.</p>
+  </div>
+  <div class="rq-grid reveal">
+    <div class="rq-card">
+      <span class="rq-score">3.8</span>
+      <h3>Discoverability</h3>
+      <p>Most participants explored their way in. The gesture overlay acted as a recovery cue rather than an initial attractor.</p>
+    </div>
+    <div class="rq-card">
+      <span class="rq-score">4.1</span>
+      <h3>Gesture naturalness</h3>
+      <p>When tracking was reliable, participants became physically expressive. Orientation sensitivity caused some failures at unusual angles.</p>
+    </div>
+    <div class="rq-card">
+      <span class="rq-score">4.5</span>
+      <h3>Curiosity and exploration</h3>
+      <p>Highest consistency across all participants. No participant rated below 4. Game mechanics as sustainers worked.</p>
+    </div>
+    <div class="rq-card">
+      <span class="rq-score">4.7</span>
+      <h3>Perceived agency</h3>
+      <p>Strongest result. All ten participants felt their gestures had a direct effect on the artwork — rated 4 or 5 by everyone.</p>
+    </div>
+    <div class="rq-card">
+      <span class="rq-score">3.8</span>
+      <h3>Emotional response</h3>
+      <p>Deeper resonance requires longer sessions than 2–10 minutes. A gap between successful interaction and fully realised aesthetic experience.</p>
+    </div>
+    <div class="rq-card">
+      <span class="rq-score">4.3</span>
+      <h3>Social co-presence</h3>
+      <p>Competition emerged in RPS; cooperation in Lavalamp — without instruction. All group participants rated this 4 or 5.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Reflexions</div>
+    <div class="footer-meta"><a href="https://thesis.cs.ut.ee/697d693b-780d-4724-a859-e496fdea16c4" target="_blank" rel="noopener" style="color:rgba(244,237,214,0.45);text-decoration:underline;text-underline-offset:3px;">Elina Meier · Master's Thesis · 2026 ↗</a></div>
+  </div>
+  <div class="footer-logos">
+    <!-- swap span for <img src="logo.png"> once you have the files -->
+    <div class="footer-logo-slot"><span>Institute of Computer Science</span></div>
+    <div class="footer-logo-slot"><span>CGVR Lab</span></div>
+  </div>
+  <div class="footer-stack">
+    Godot 4 · MediaPipe · Intel RealSense SR305<br>
+    Python · GDScript · GLSL Compute<br>
+    <a href="https://reflexions.cloud.ut.ee/" target="_blank" rel="noopener" style="color:rgba(244,237,214,0.45);text-decoration:underline;text-underline-offset:3px;">Reflexions (2025) ↗</a>
+  </div>
+</footer>
+
+<script>
+const imgs = ['rockImg','paperImg','scissorsImg'];
+const labels = [
+  'gesture: Closed_Fist &nbsp;·&nbsp; conf: 0.97<br>depth: 0.42 m &nbsp;·&nbsp; wrist: (0.274, 0.273)',
+  'gesture: Open_Palm &nbsp;·&nbsp; conf: 0.99<br>depth: 0.38 m &nbsp;·&nbsp; wrist: (0.512, 0.341)',
+  'gesture: Victory &nbsp;·&nbsp; conf: 0.96<br>depth: 0.51 m &nbsp;·&nbsp; wrist: (0.438, 0.298)',
+];
+let cur = 0;
+setInterval(() => {
+  document.getElementById(imgs[cur]).classList.add('fade-out');
+  cur = (cur + 1) % imgs.length;
+  document.getElementById(imgs[cur]).classList.remove('fade-out');
+  document.getElementById('cvReadout').innerHTML = labels[cur];
+}, 2400);
+
+const obs = new IntersectionObserver(
+  entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+  { threshold: 0.08 }
+);
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
