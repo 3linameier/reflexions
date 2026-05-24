@@ -30,7 +30,8 @@ body {
 /* NAV */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  display: flex; align-items: center; justify-content: space-between;
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center;
   padding: 1rem 3rem;
   background: rgba(158,63,56,0.92); backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(244,237,214,0.1);
@@ -39,13 +40,14 @@ nav {
   font-family: 'Fraunces', serif; font-style: italic; font-weight: 900;
   font-size: 1.05rem; color: var(--cream);
 }
-nav ul { display: flex; gap: 2rem; list-style: none; }
+nav ul { display: flex; gap: 2rem; list-style: none; justify-self: center; }
 nav a {
   font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
   letter-spacing: 0.1em; color: rgba(244,237,214,0.5); text-decoration: none;
   text-transform: uppercase; transition: color .2s;
 }
 nav a:hover { color: var(--cream); }
+
 
 /* HERO */
 .hero {
@@ -345,9 +347,8 @@ footer {
   display: flex; align-items: center; gap: 1.5rem;
 }
 .footer-logo-slot {
-  height: 48px; display: flex; align-items: center;
+  height: 48px; display: flex; align-items: center; text-decoration: none;
 }
-.footer-logo-slot:hover { opacity: 0.8; }
 .footer-logo-slot img { height: 100%; width: auto; object-fit: contain; }
 .footer-logo-slot span {
   font-family: 'JetBrains Mono', monospace; font-size: 0.55rem;
@@ -367,7 +368,7 @@ footer {
 /* RESPONSIVE */
 @media (max-width: 960px) {
   nav { padding: 1rem 1.5rem; }
-  nav ul, .nav-logos { display: none; }
+  nav ul { display: none; }
   .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
   .hero-visual { display: none; }
   .intro-inner, .gestures-layout { grid-template-columns: 1fr; gap: 2rem; }
@@ -394,10 +395,6 @@ footer {
     <li><a href="#system">System</a></li>
     <li><a href="#research">Research</a></li>
   </ul>
-  <div class="nav-logos">
-    <div class="nav-logo-slot"><img src="images/utLogo.png" alt="UT Institute of CS"></div>
-    <div class="nav-logo-slot"><img src="images/cgvrLogo.png" alt="CGVR Lab"></div>
-  </div>
 </nav>
 
 <!-- HERO -->
