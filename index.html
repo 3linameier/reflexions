@@ -53,7 +53,6 @@ nav a:hover { color: var(--cream); }
 }
 .nav-logo-slot:hover { opacity: 0.85; }
 .nav-logo-slot img { height: 100%; width: auto; object-fit: contain; }
-/* text fallback until real logos added */
 .nav-logo-slot span {
   font-family: 'JetBrains Mono', monospace; font-size: 0.55rem;
   letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,214,0.5);
@@ -194,7 +193,7 @@ h2 {
 }
 .artwork-card:hover { transform: translateY(-4px); border-color: rgba(244,237,214,0.25); }
 
-/* Demo / gif slot replaces the old screenshot placeholder */
+/* Demo */
 .artwork-demo {
   aspect-ratio: 16/9; position: relative; overflow: hidden;
   background: var(--navy); display: flex; align-items: center;
@@ -409,9 +408,8 @@ footer {
     <li><a href="#research">Research</a></li>
   </ul>
   <div class="nav-logos">
-    <!-- swap span for <img src="ut-cs-logo.png" alt="UT Institute of CS"> once you have the file -->
-    <div class="nav-logo-slot"><span>UT Institute of CS</span></div>
-    <div class="nav-logo-slot"><span>CGVR Lab</span></div>
+    <div class="nav-logo-slot"><img src="images/utLogo.png" alt="UT Institute of CS"></div>
+    <div class="nav-logo-slot"><img src="images/cgvrLogo.png" alt="CGVR Lab"></div>
   </div>
 </nav>
 
@@ -490,7 +488,7 @@ footer {
   </div>
 </section>
 
-<!-- ARTWORKS + DEMO COMBINED -->
+<!-- ARTWORKS -->
 <section id="artworks" class="artworks-section">
   <div class="reveal">
     <h2>Three artworks.</h2>
@@ -500,11 +498,7 @@ footer {
 
     <div class="artwork-card">
       <div class="artwork-demo artwork-demo-rps">
-        <!--
-          To add your demo, replace this comment block with ONE of:
-          <img src="rps-demo.gif" alt="RPS demo">
-          <video src="rps-demo.mp4" autoplay loop muted playsinline></video>
-        -->
+          <img src="gifs/rpsDemo.gif" alt="RPS demo">
         <div class="demo-pattern"></div>
         <div class="play-ring"></div>
         <div class="demo-hint">rps-demo.gif</div>
@@ -522,10 +516,7 @@ footer {
 
     <div class="artwork-card">
       <div class="artwork-demo artwork-demo-bloom">
-        <!--
-          <img src="bloom-demo.gif" alt="Bloom demo">
-          <video src="bloom-demo.mp4" autoplay loop muted playsinline></video>
-        -->
+          <img src="gifs/bloomDemo.gif" alt="Bloom demo">
         <div class="demo-pattern"></div>
         <div class="play-ring"></div>
         <div class="demo-hint">bloom-demo.gif</div>
@@ -543,10 +534,7 @@ footer {
 
     <div class="artwork-card">
       <div class="artwork-demo artwork-demo-lava" style="position:relative;">
-        <!--
-          <img src="lavalamp-demo.gif" alt="Lavalamp demo">
-          <video src="lavalamp-demo.mp4" autoplay loop muted playsinline></video>
-        -->
+          <img src="gifs/lavalampDemo.gif" alt="Lavalamp demo">
         <div class="lava-blob" style="width:90px;height:90px;background:rgba(255,210,70,0.4);top:-18px;left:18px"></div>
         <div class="lava-blob" style="width:60px;height:60px;background:rgba(190,70,15,0.38);bottom:0;right:32px;animation-delay:2s"></div>
         <div style="position:absolute;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.5);top:36px;left:140px;filter:blur(5px)"></div>
@@ -567,7 +555,7 @@ footer {
   </div>
 </section>
 
-<!-- GESTURES — dark background -->
+<!-- GESTURES -->
 <section class="gestures-section">
   <div class="gestures-layout reveal">
     <div>
@@ -710,9 +698,8 @@ footer {
     <div class="footer-meta"><a href="https://thesis.cs.ut.ee/697d693b-780d-4724-a859-e496fdea16c4" target="_blank" rel="noopener" style="color:rgba(244,237,214,0.45);text-decoration:underline;text-underline-offset:3px;">Elina Meier · Master's Thesis · 2026 ↗</a></div>
   </div>
   <div class="footer-logos">
-    <!-- swap span for <img src="logo.png"> once you have the files -->
-    <div class="footer-logo-slot"><span>Institute of Computer Science</span></div>
-    <div class="footer-logo-slot"><span>CGVR Lab</span></div>
+    <div class="footer-logo-slot"><img src="images/utLogo.png" alt="Institute of Computer Science"></div>
+    <div class="footer-logo-slot"><img src="images/cgvrLogo.png" alt="CGVR Lab"></div>
   </div>
   <div class="footer-stack">
     Godot 4 · MediaPipe · Intel RealSense SR305<br>
