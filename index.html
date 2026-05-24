@@ -46,18 +46,6 @@ nav a {
   text-transform: uppercase; transition: color .2s;
 }
 nav a:hover { color: var(--cream); }
-.nav-logos { display: flex; align-items: center; gap: 1.2rem; }
-.nav-logo-slot {
-  height: 28px; display: flex; align-items: center;
-  filter: brightness(10) saturate(0); opacity: 0.55; transition: opacity .2s;
-}
-.nav-logo-slot:hover { opacity: 0.85; }
-.nav-logo-slot img { height: 100%; width: auto; object-fit: contain; }
-.nav-logo-slot span {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.55rem;
-  letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,214,0.5);
-  border: 1px solid rgba(244,237,214,0.18); padding: 0.22rem 0.55rem; border-radius: 2px;
-}
 
 /* HERO */
 .hero {
@@ -357,8 +345,7 @@ footer {
   display: flex; align-items: center; gap: 1.5rem;
 }
 .footer-logo-slot {
-  height: 34px; display: flex; align-items: center;
-  filter: brightness(10) saturate(0); opacity: 0.5; transition: opacity .2s;
+  height: 48px; display: flex; align-items: center;
 }
 .footer-logo-slot:hover { opacity: 0.8; }
 .footer-logo-slot img { height: 100%; width: auto; object-fit: contain; }
@@ -492,63 +479,37 @@ footer {
 <section id="artworks" class="artworks-section">
   <div class="reveal">
     <h2>Three artworks.</h2>
-    <p class="section-desc">Same gesture vocabulary, three distinct aesthetic worlds. Drop your .gif or .mp4 files into each card.</p>
+    <p class="section-desc">Same gesture vocabulary, three distinct aesthetic worlds.</p>
   </div>
   <div class="artworks-grid reveal">
 
     <div class="artwork-card">
       <div class="artwork-demo artwork-demo-rps">
           <img src="gifs/rpsDemo.gif" alt="RPS demo">
-        <div class="demo-pattern"></div>
-        <div class="play-ring"></div>
-        <div class="demo-hint">rps-demo.gif</div>
       </div>
       <div class="artwork-body">
         <span class="artwork-name">Rock–Paper–Scissors</span>
-        <p>Gestures spawn animated 3D objects that flock and battle using Boids logic and RPS collision rules. A competitive dynamic emerges naturally across multiple players.</p>
-        <div class="artwork-chips">
-          <span class="artwork-chip">Boids flocking</span>
-          <span class="artwork-chip">GPU particle trails</span>
-          <span class="artwork-chip">Predator-prey forces</span>
-        </div>
+        <p>Gestures spawn animated 3D objects that flock and battle using Boids logic and rock-paper-scissors collision rules. A competitive dynamic emerges naturally across multiple players.</p>
       </div>
     </div>
 
     <div class="artwork-card">
       <div class="artwork-demo artwork-demo-bloom">
           <img src="gifs/bloomDemo.gif" alt="Bloom demo">
-        <div class="demo-pattern"></div>
-        <div class="play-ring"></div>
-        <div class="demo-hint">bloom-demo.gif</div>
       </div>
       <div class="artwork-body">
         <span class="artwork-name">Bloom</span>
         <p>Each detected hand spawns a bee following via spring-damper physics. Holding still blooms a lily — a persistent trace of the visitor's presence. Extended from the original Lily artwork.</p>
-        <div class="artwork-chips">
-          <span class="artwork-chip">Spring-damper physics</span>
-          <span class="artwork-chip">Lily spawning</span>
-          <span class="artwork-chip">Multi-user</span>
-        </div>
       </div>
     </div>
 
     <div class="artwork-card">
       <div class="artwork-demo artwork-demo-lava" style="position:relative;">
           <img src="gifs/lavalampDemo.gif" alt="Lavalamp demo">
-        <div class="lava-blob" style="width:90px;height:90px;background:rgba(255,210,70,0.4);top:-18px;left:18px"></div>
-        <div class="lava-blob" style="width:60px;height:60px;background:rgba(190,70,15,0.38);bottom:0;right:32px;animation-delay:2s"></div>
-        <div style="position:absolute;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.5);top:36px;left:140px;filter:blur(5px)"></div>
-        <div class="play-ring" style="position:relative;z-index:2"></div>
-        <div class="demo-hint" style="position:relative;z-index:2">lavalamp-demo.gif</div>
       </div>
       <div class="artwork-body">
         <span class="artwork-name">Lavalamp</span>
         <p>A fist pulls 65,536 SPH particles inward; an open palm pushes them away. Multiple users create competing fluid forces. Each interaction leaves a permanent trace on the simulation.</p>
-        <div class="artwork-chips">
-          <span class="artwork-chip">SPH compute shader</span>
-          <span class="artwork-chip">65k particles</span>
-          <span class="artwork-chip">Persistent traces</span>
-        </div>
       </div>
     </div>
 
@@ -698,8 +659,8 @@ footer {
     <div class="footer-meta"><a href="https://thesis.cs.ut.ee/697d693b-780d-4724-a859-e496fdea16c4" target="_blank" rel="noopener" style="color:rgba(244,237,214,0.45);text-decoration:underline;text-underline-offset:3px;">Elina Meier · Master's Thesis · 2026 ↗</a></div>
   </div>
   <div class="footer-logos">
-    <div class="footer-logo-slot"><img src="images/utLogo.png" alt="Institute of Computer Science"></div>
-    <div class="footer-logo-slot"><img src="images/cgvrLogo.png" alt="CGVR Lab"></div>
+    <a href="https://cs.ut.ee/en" target="_blank" rel="noopener" class="footer-logo-slot"><span>Institute of Computer Science</span></a>
+    <a href="https://cgvr.cs.ut.ee/" target="_blank" rel="noopener" class="footer-logo-slot"><span>CGVR Lab</span></a>
   </div>
   <div class="footer-stack">
     Godot 4 · MediaPipe · Intel RealSense SR305<br>
